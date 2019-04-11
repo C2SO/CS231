@@ -1,0 +1,30 @@
+// example program using functions
+//functions.c
+//Dr. Vineyard CS231
+
+#include <stdio.h>
+
+//All functions must be defined or declared before the first invocation
+int val(int);
+
+double pi(double, double);
+
+int main()
+{
+  int num = 7;
+  int num2 = val(num);
+  printf("val returned %d\n", num2);
+  double myPi = pi(3.14, 1.0);
+  printf("myPi is %f\n", myPi);
+  return 0;
+}
+
+int val(int x)
+{
+  return x * (x - 1);
+}
+
+double pi(double area, double radius)
+{
+  return area / (radius * radius);
+}

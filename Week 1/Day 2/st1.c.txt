@@ -1,0 +1,14 @@
+// example program showing storage classes, extern part 1
+//st1.c
+//Dr. Vineyard CS231
+
+#include <stdio.h>
+
+extern int a;
+extern int sum(int, int);
+int main()
+{
+  printf ("extern example print: %d\n", a+1);
+  printf("function sum in file: %d\n", sum(3, 4));
+  return 0; 
+}

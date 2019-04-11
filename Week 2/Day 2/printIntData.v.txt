@@ -1,0 +1,14 @@
+/*
+ * Dr. Vineyard
+ * CS231 all sections
+ * printIntData.c
+ */
+
+#include "myIntType.h"
+#include <stdio.h>
+
+void dataPrint(dataType element)
+{
+  printf("%d\n", element);
+  return;
+}
