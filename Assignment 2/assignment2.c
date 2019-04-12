@@ -30,5 +30,5 @@ int main()
   strcpy(upperArr, arr);
   for(char* c=upperArr; *c=toupper(*c); ++c);
 
-  printf("%s\n", upperArr);
+  printf("%s\n\n", upperArr);
 }
