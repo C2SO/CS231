@@ -22,6 +22,7 @@ int main()
                    "Reverse Strings & Count Letters");
 
   char string[100];
+  char stringRev[100];
   int c = 0, count[26] = {0}, x;
      
   printf("Enter a string\n");
@@ -37,6 +38,22 @@ int main()
      
     c++;
   }
+
+  int reverseIndex, begin, end = 0;
+  while (string[reverseIndex] != '\0') {
+    reverseIndex++;
+ 
+    end = reverseIndex - 1;
+ 
+    for (begin = 0; begin < reverseIndex; begin++) {
+      stringRev[begin] = string[end];
+      end--;
+    }
+ 
+    stringRev[begin] = '\0';
+ 
+  }
+  printf("Reversed String: %s\n", stringRev);
 
   printf("%d word(s) in this string\n", words(string));
 
