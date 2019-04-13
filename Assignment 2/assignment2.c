@@ -23,7 +23,8 @@ int main()
 
   char string[100];
   char stringRev[100];
-  int c = 0, count[26] = {0}, x;
+  int c, c2 = 0, count[26] = {0}, x;
+  int countTotal[26] = {0};
      
   printf("Enter a string\n");
   fgets(string, 100, stdin);
@@ -34,6 +35,7 @@ int main()
     if (string[c] >= 'a' && string[c] <= 'z') {
       x = string[c] - 'a';
       count[x]++;
+      countTotal[x]++;
     }
      
     c++;
@@ -53,14 +55,24 @@ int main()
     stringRev[begin] = '\0';
  
   }
-  printf("Reversed String: %s\n", stringRev);
+  printf("\nReversed String: %s", stringRev);
 
-  printf("%d word(s) in this string\n", words(string));
+  printf("\n\n%d word(s) in this string\n", words(string));
 
-  for (c = 0; c < 26; c++)
+  for (c = 0; c < 26; c++) {
     if (count[c] != 0) {
       printf("%c occurs %d times in the string.\n", c + 'a', count[c]);
     }
+  }
+
+  printf("\n");
+
+  for (c2 = 0; c2 < 26; c2++) {
+    if (countTotal[c2] != 0) {
+      printf("%c occurs %d times in total.\n", c2 + 'a', countTotal[c2]);
+    }
+  }
+
   return 0;
 }
 
