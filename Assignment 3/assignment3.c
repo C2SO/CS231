@@ -20,6 +20,10 @@ int main(int argc, char *argv[])
 
    checkArgs(argc, argv);
 
+   if (b == 1 && n == 1) {
+      n = 0;
+   }
+
    for (int i = 1; i < argc; i++)
    {
       if (strstr(argv[i], "-") == NULL)
@@ -70,29 +74,36 @@ void printFile(char *argv)
       return;
    }
 
+   int blankLine = 0;
    while ((ch = fgetc(fp)) != EOF)
    {
-      if (ch == '\r' && b == 1)
-      {
-         lineNumber--;
-      }
-      else if (ch == '\n')
+      if (ch == '\n')
       {
          if (e == 1)
          {
             printf("$");
          }
+         else if (newLine == 1 && blankLine == 0 && b == 1)
+         {
+            blankLine = 1;
+            lineNumber--;
+         }
+         else if (newLine == 1 && blankLine == 0 && n == 1)
+         {
+            printf("     %d  ", lineNumber);
+            newLine = 0;
+            printed = 1;
+         }
          lineNumber++;
          newLine = 1;
       }
-      else if (newLine == 1 && b == 1)
+      else if (b == 1 || n == 1)
       {
-         printf("     %d  ", lineNumber);
+         if (printed == 0 || newLine == 1)
+         {
+            printf("     %d  ", lineNumber);
+         }
          newLine = 0;
-      }
-      else if (printed == 0)
-      {
-         printf("     %d  ", lineNumber);
          printed = 1;
       }
       putchar(ch);
