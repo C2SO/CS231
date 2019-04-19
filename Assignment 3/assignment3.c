@@ -2,17 +2,37 @@
 #include <string.h>
 #define MAX_FILE_NAME_CHARS 255
 
+void checkArgs(int argc, char *argv[]);
+void printFile(int argc, char *argv);
+
+int e, b, n, printed = 0;
+char file_name[MAX_FILE_NAME_CHARS], ch;
+int newLine, lineNumber = 1;
+
 int main(int argc, char *argv[])
 {
-   FILE *fp;
-   char file_name[MAX_FILE_NAME_CHARS], ch;
-   int e, b, n = 0;
 
    if (argc < 1)
    {
       printf("Usage mycat <filename> \n");
       return 0;
    }
+
+   checkArgs(argc, argv);
+
+   for (int i = 1; i < argc; i++)
+   {
+      if (strstr(argv[i], "-") == NULL)
+      {
+         printFile(argc, argv[i]);
+      }
+   }
+
+   return 1;
+}
+
+void checkArgs(int argc, char *argv[])
+{
 
    for (int i = 1; i < argc; i++)
    {
@@ -33,24 +53,43 @@ int main(int argc, char *argv[])
          }
       }
    }
+}
 
-   for (int i = 1; i < argc; i++)
+void printFile(int argc, char *argv)
+{
+   FILE *fp;
+   char file_name[MAX_FILE_NAME_CHARS], ch;
+
+   strncpy(file_name, argv, MAX_FILE_NAME_CHARS);
+
+   fp = fopen(file_name, "r");
+   if (fp == NULL)
    {
-
-      strncpy(file_name, argv[i], MAX_FILE_NAME_CHARS);
-
-      fp = fopen(file_name, "r");
-      if (fp == NULL)
-      {
-         printf("%s: No such file or directory\n", file_name);
-         return -1;
-      }
-
-      while ((ch = fgetc(fp)) != EOF)
-      {
-         putchar(ch);
-      }
-      fclose(fp);
+      printf("%s: No such file or directory\n", file_name);
+      return;
    }
-   return 0;
+
+   while ((ch = fgetc(fp)) != EOF)
+   {
+      if (ch == '\n')
+      {
+         if (e == 1)
+         {
+            printf("$");
+         }
+         lineNumber++;
+         newLine = 1;
+      }
+      else if (newLine == 1 && n == 1)
+      {
+         printf("     %d  ", lineNumber);
+         newLine = 0;
+      }
+      else if (printed == 0) {
+         printf("     %d  ", lineNumber);
+         printed = 1;
+      }
+      putchar(ch);
+   }
+   fclose(fp);
 }
