@@ -3,7 +3,7 @@
 #define MAX_FILE_NAME_CHARS 255
 
 void checkArgs(int argc, char *argv[]);
-void printFile(int argc, char *argv);
+void printFile(char *argv);
 
 int e, b, n, printed = 0;
 char file_name[MAX_FILE_NAME_CHARS], ch;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
    {
       if (strstr(argv[i], "-") == NULL)
       {
-         printFile(argc, argv[i]);
+         printFile(argv[i]);
       }
    }
 
@@ -51,11 +51,12 @@ void checkArgs(int argc, char *argv[])
          {
             n = 1;
          }
+         // print user input if it is just '-'
       }
    }
 }
 
-void printFile(int argc, char *argv)
+void printFile(char *argv)
 {
    FILE *fp;
    char file_name[MAX_FILE_NAME_CHARS], ch;
@@ -71,7 +72,11 @@ void printFile(int argc, char *argv)
 
    while ((ch = fgetc(fp)) != EOF)
    {
-      if (ch == '\n')
+      if (ch == '\r' && b == 1)
+      {
+         lineNumber--;
+      }
+      else if (ch == '\n')
       {
          if (e == 1)
          {
@@ -80,12 +85,13 @@ void printFile(int argc, char *argv)
          lineNumber++;
          newLine = 1;
       }
-      else if (newLine == 1 && n == 1)
+      else if (newLine == 1 && b == 1)
       {
          printf("     %d  ", lineNumber);
          newLine = 0;
       }
-      else if (printed == 0) {
+      else if (printed == 0)
+      {
          printf("     %d  ", lineNumber);
          printed = 1;
       }
