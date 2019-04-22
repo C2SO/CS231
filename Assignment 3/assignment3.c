@@ -20,7 +20,8 @@ int main(int argc, char *argv[])
 
    checkArgs(argc, argv);
 
-   if (b == 1 && n == 1) {
+   if (b == 1 && n == 1)
+   {
       n = 0;
    }
 
@@ -55,7 +56,6 @@ void checkArgs(int argc, char *argv[])
          {
             n = 1;
          }
-         // print user input if it is just '-'
       }
    }
 }
