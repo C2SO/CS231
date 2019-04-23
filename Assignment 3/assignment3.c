@@ -1,13 +1,16 @@
+#include <fnmatch.h>
 #include <stdio.h>
 #include <string.h>
 #define MAX_FILE_NAME_CHARS 255
 
 void checkArgs(int argc, char *argv[]);
 void printFile(char *argv);
+void printString(int ch);
 
 int e, b, n, printed = 0;
 char file_name[MAX_FILE_NAME_CHARS], ch;
 int newLine, lineNumber = 1;
+int blankLine = 0;
 
 int main(int argc, char *argv[])
 {
@@ -20,14 +23,17 @@ int main(int argc, char *argv[])
 
    checkArgs(argc, argv);
 
-   if (b == 1 && n == 1)
-   {
-      n = 0;
-   }
-
    for (int i = 1; i < argc; i++)
    {
-      if (strstr(argv[i], "-") == NULL)
+      if (0 == fnmatch("-", argv[i], 0))
+      {
+         int e;
+         while ((e = getchar()) != EOF)
+         {
+            printString(e);
+         }
+      }
+      else if (strstr(argv[i], "-") == NULL)
       {
          printFile(argv[i]);
       }
@@ -38,7 +44,7 @@ int main(int argc, char *argv[])
 
 void checkArgs(int argc, char *argv[])
 {
-
+   char string[256];
    for (int i = 1; i < argc; i++)
    {
 
@@ -58,6 +64,11 @@ void checkArgs(int argc, char *argv[])
          }
       }
    }
+
+   if (b == 1 && n == 1)
+   {
+      n = 0;
+   }
 }
 
 void printFile(char *argv)
@@ -74,39 +85,41 @@ void printFile(char *argv)
       return;
    }
 
-   int blankLine = 0;
    while ((ch = fgetc(fp)) != EOF)
    {
-      if (ch == '\n')
-      {
-         if (e == 1)
-         {
-            printf("$");
-         }
-         else if (newLine == 1 && blankLine == 0 && b == 1)
-         {
-            blankLine = 1;
-            lineNumber--;
-         }
-         else if (newLine == 1 && blankLine == 0 && n == 1)
-         {
-            printf("     %d  ", lineNumber);
-            newLine = 0;
-            printed = 1;
-         }
-         lineNumber++;
-         newLine = 1;
-      }
-      else if (b == 1 || n == 1)
-      {
-         if (printed == 0 || newLine == 1)
-         {
-            printf("     %d  ", lineNumber);
-         }
-         newLine = 0;
-         printed = 1;
-      }
-      putchar(ch);
+      printString(ch);
    }
    fclose(fp);
+}
+
+void printString(int ch)
+{
+   if (ch == '\n')
+   {
+      if (e == 1)
+      {
+         printf("$");
+      }
+      if (newLine == 1 && b == 1)
+      {
+         lineNumber--;
+      }
+      if (newLine == 1 && n == 1)
+      {
+         printf("     %d  ", lineNumber);
+         printed = 1;
+      }
+      lineNumber++;
+      newLine = 1;
+   }
+   else if (b == 1 || n == 1)
+   {
+      if (printed == 0 || newLine == 1)
+      {
+         printf("     %d  ", lineNumber);
+      }
+      newLine = 0;
+      printed = 1;
+   }
+   putchar(ch);
 }
