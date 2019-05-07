@@ -4,21 +4,22 @@ CS231
 Assignment4 - compare.c
 */
 
-#include <ctype.h>  // Used to check isupper()
-#include <stdio.h>  // Used for standard input and output
-#include <stdlib.h> // Used for malloc, exit, and for file types
-#include <string.h> // Used for strlen
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 FILE *openFile(char *fileName); // Function to open the requested file
 void compareWords(FILE *inFile);
 // Function that compares the user's inputs to words in the designated file
 char *stringToLower(char *s);
+// Function that converts a string to lower case
 
 void main(int argc, char *argv[])
 // The first function that is called when the program
 // starts. It takes in the user's arguments, will then
 // check if there are any argument errors, then will
-// call the openFile and printFile function if there
+// call the openFile and compareWords function if there
 // are no arguments
 
 // data table

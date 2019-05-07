@@ -4,18 +4,18 @@ CS231
 Assignment 4 - lex.c
 */
 
-#include <ctype.h> // Used to check isupper()
-#include <stdio.h> // Used for standard input and output
-#include <stdlib.h> // Used for malloc, exit, and for file types
-#include <string.h> // Used for strlen
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 FILE *openFile(char *fileName); // Function to open the requested file
-void printFile(FILE *inFile); // Function that prints the file
+void printFile(FILE *inFile);   // Function that prints the file
 
 void main(int argc, char *argv[])
 // The first function that is called when the program
 // starts. It takes in the user's arguments, will then
-// check if there are any argument errors, then will 
+// check if there are any argument errors, then will
 // call the openFile and printFile function if there
 // are no arguments
 
@@ -36,7 +36,7 @@ void main(int argc, char *argv[])
     FILE *file = openFile(argv[1]);
     // Sets the file to the file the user passed in
     printFile(file); // Prints the file
-    fclose(file); // Closes the file
+    fclose(file);    // Closes the file
 }
 
 FILE *openFile(char *fileName)
@@ -58,7 +58,7 @@ FILE *openFile(char *fileName)
     }
     // If the file was not found
     printf("Cannot find the requested file.\n"); // Print an error
-    exit(0); // Exit the program
+    exit(0);                                     // Exit the program
 }
 
 void printFile(FILE *inFile)
@@ -75,13 +75,13 @@ void printFile(FILE *inFile)
 // index       | The index for the length of the line
 
 {
-    size_t size; // Used to define the size of the line
-    char ** line = malloc(sizeof(char *)); // Used to store the line
+    size_t size;                          // Used to define the size of the line
+    char **line = malloc(sizeof(char *)); // Used to store the line
     // Need to make double pointer because line holds an array of words
     // which holds an array of characters
     while (getline(line, &size, inFile) != -1) //  While the line exists
     {
-        int wordPrinted = 0; // The word has not been printed
+        int wordPrinted = 0;          // The word has not been printed
         int length = strlen(line[0]); // Sets the length of the line
         for (int index = 0; index < length; index++)
         // For every character in the line
@@ -90,13 +90,13 @@ void printFile(FILE *inFile)
             // If the character is part of the alphabet
             {
                 printf("%c", line[0][index]); // Print the character
-                wordPrinted = 1; // The word has been printed
+                wordPrinted = 1;              // The word has been printed
             }
             // If the character is not part of the alphabet
             else if (wordPrinted)
             // If the word has been printed
             {
-                printf("\n"); // Print a new line character
+                printf("\n");    // Print a new line character
                 wordPrinted = 0; // The new word has not been printed
             }
         }
