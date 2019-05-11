@@ -96,11 +96,11 @@ void compareWords(FILE *inFile)
         // Sets the file position to the beginning of the file
         if (wordFound == 1) // If the word was found
         {
-            printf("Word found!\n"); // Print the word was found
+            printf("Word correct: %s\n", inputWord); // Print the word was found
         }
         else // If the word wasn't found
         {
-            printf("Word could not be found.\n");
+            printf("Word incorrect: %s\n", inputWord);
             // Print the word was not found
         }
     }
