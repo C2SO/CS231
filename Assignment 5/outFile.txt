@@ -1,0 +1,8 @@
+               Committee Meeting Held
+
+Members Needed    Members on Time        Meeting Held
+
+	3		3			yes
+
+	4		3			no
+
